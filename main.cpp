@@ -1,15 +1,40 @@
 // Include necessary headers for file handling, data structures, etc.
+#include <iostream>
+#include <fstream>
+#include <map>
+#include <array>
+#include <list>
+#include <string>
+#include <cstdlib>
+#include <ctime>
+#include <sstream>
+
+using namespace std;
 
 // Define a function to simulate disease spread over time
-    // Parameters: map of regions, number of time periods
+// Parameters: map of regions, number of time periods
+void simulateDiseaseSpread(map<string, array<list<string>, 3>>& regions, int timePeriods);
 
-// Define main function
+int main() {
+    // Define main function
+    // Initialize random seed
+    srand(static_cast<unsigned int>(time(nullptr)));
+
     // Initialize a map to store region information, each associated with an array of lists for susceptible, infected, and recovered individuals
+    map<string, array<list<string>, 3>> regions;
 
     // Open an external file to read initial data about individuals and populate the map
-        // If file does not open, print an error and exit
+    ifstream inputFile("population_data.txt");
+    // If file does not open, print an error and exit
+    if (!inputFile.is_open()) {
+        cerr << "Error: Could not open the data file.\n";
+        return 1;
+    }
 
     // Read data from file and populate map
+    string line;
+    while (getline(inputFile, line)) {
+        // For each line, extract IndividualID, RegionName, and DiseaseState
         // For each line, extract IndividualID, RegionName, and DiseaseState
         // Insert IndividualID into the appropriate list in the array for their region based on DiseaseState (S, I, or R)
 
