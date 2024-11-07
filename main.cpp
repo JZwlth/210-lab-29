@@ -54,19 +54,35 @@ int main() {
                             // For each susceptible individual
                                 // Generate a random number to determine if infection occurs based on infection probability
                                 // If infection occurs:
-                                    // Move individual from susceptible list to infected list
-                                    // Log that the individual became infected
+    // Update disease states based on new infections and recoveries
+        for (const auto& regionPair : toInfect) {
+            string regionName = regionPair.first;
+            for (const auto& individual : regionPair.second) {
+                regions[regionName][0].remove(individual); // Move individual from susceptible list to infected list
+                regions[regionName][1].push_back(individual);
+            }
+        }
 
-                // Recovery Phase:
-                    // For each infected individual in the region
-                        // Generate a random number to determine if recovery occurs based on recovery probability
-                        // If recovery occurs:
-                            // Move individual from infected list to recovered list
-                            // Log that the individual recovered
+        for (const auto& regionPair : toRecover) {
+            string regionName = regionPair.first;
+            for (const auto& individual : regionPair.second) {
+                regions[regionName][1].remove(individual); // Move individual from infected list to recovered list
+                regions[regionName][2].push_back(individual);
+                cout << individual << " in " << regionName << " recovered.\n";
+            }
+        }
 
-            // Display the state of each region after the current time period
-                // Show counts of susceptible, infected, and recovered individuals for each region
+        // Display the state of each region after the current time period
+        cout << "\n--- State at Time Period " << t << " ---\n";
+        for (const auto& regionPair : regions) {
+            string regionName = regionPair.first;
+            const auto& diseaseStates = regionPair.second;
+            cout << "Region: " << regionName << "\n";
+            cout << "  Susceptible: " << diseaseStates[0].size() << "\n";
+            cout << "  Infected:    " << diseaseStates[1].size() << "\n";
+            cout << "  Recovered:   " << diseaseStates[2].size() << "\n";
+        }
 
-            // Optional: Wait or pause briefly to simulate the passage of time between periods
-
-// End of main function
+        // Optional: Wait or pause briefly to simulate the passage of time between periods
+    }
+}
