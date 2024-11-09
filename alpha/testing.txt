@@ -1,0 +1,14 @@
+# Testing Description
+
+Objective: To test the simulateDiseaseSpread function to ensure it correctly simulates the spread of the disease over the specified number of time periods.
+
+Approach:
+
+- Test Case 1: Verify that the function correctly updates the disease states of individuals over one time period.
+- Test Case 2: Verify that the function handles regions with no infected individuals correctly.
+- Test Case 3: Verify that the function can handle edge cases, such as when all individuals are infected or recovered.
+- Test Case 4: Check that the function does not produce any segmentation faults or runtime errors when the lists are empty.
+
+# Unit Test Code
+
+[Include the unit_test.cpp code here]
