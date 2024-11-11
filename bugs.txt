@@ -1,0 +1,45 @@
+Bug #1:
+
+Description: Program crashed when attempting to read population_data.txt.
+Cause: The file was not found because it was in the wrong directory.
+Solution: Moved population_data.txt to the same directory as the executable.
+Bug #2:
+
+Description: Simulation did not update disease states after the first time period.
+Cause: The loop variable in the simulateDiseaseSpread function was not incrementing.
+Solution: Corrected the for-loop structure to ensure the loop variable increments properly.
+Bug #3:
+
+Description: Individuals were not being moved from the infected list to the recovered list.
+Cause: The code updating the disease states was missing for recovered individuals.
+Solution: Added the necessary code to remove individuals from the infected list and add them to the recovered list.
+Bug #4:
+
+Description: Random numbers generated were the same on each run.
+Cause: The random seed was not initialized.
+Solution: Added srand(static_cast<unsigned int>(time(nullptr))); to initialize the random number generator.
+Bug #5:
+
+Description: Compiler warning about unused variable infectedIndividual.
+Cause: infectedIndividual was declared but not used inside the loop.
+Solution: Modified the code to utilize infectedIndividual, such as logging infection events.
+Bug #6:
+
+Description: Incorrect counts of susceptible individuals after infections.
+Cause: Individuals were not being removed from the susceptible list when they became infected.
+Solution: Ensured that individuals are removed from the susceptible list upon infection.
+Bug #7:
+
+Description: Recovery probability seemed too low; infected individuals rarely recovered.
+Cause: Recovery probability variable was set to 0.01 instead of 0.1.
+Solution: Corrected the recoveryProbability value to 0.1.
+Bug #8:
+
+Description: Segmentation fault when accessing disease state arrays.
+Cause: Accessing an array index out of bounds due to incorrect indexing.
+Solution: Verified that array indices are within valid ranges and corrected the indexing.
+Bug #9:
+
+Description: Program did not handle regions with no infected individuals.
+Cause: The code did not check if the infected list was empty before attempting to infect others.
+Solution: Added a condition to skip the infection phase if there are no infected individuals in a region.
