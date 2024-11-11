@@ -1,5 +1,3 @@
-// Need change scrollback to 2000 in vscode setting
-
 // Include necessary headers for file handling, data structures, etc.
 #include <iostream>
 #include <fstream>
@@ -10,6 +8,8 @@
 #include <cstdlib>
 #include <ctime>
 #include <sstream>
+#include <thread>   // For sleep functionality
+#include <chrono>   // For time units
 
 using namespace std;
 
@@ -21,7 +21,7 @@ int main() {
     // Initialize random seed
     srand(static_cast<unsigned int>(time(nullptr)));
 
-    // Initialize a map to store reion information, each associated with an array of lists for susceptible, infected, and recovered individuals
+    // Initialize a map to store region information, each associated with an array of lists for susceptible, infected, and recovered individuals
     map<string, array<list<string>, 3>> regions;
 
     // Open an external file to read initial data about individuals and populate the map
@@ -120,6 +120,7 @@ void simulateDiseaseSpread(map<string, array<list<string>, 3>>& regions, int tim
                     // If recovery occurs:
                     toRecover[regionName].push_back(infectedIndividual);
                     // Log that the individual recovered
+                    cout << infectedIndividual << " in " << regionName << " recovered.\n";
                 }
             }
         }
@@ -138,7 +139,6 @@ void simulateDiseaseSpread(map<string, array<list<string>, 3>>& regions, int tim
             for (const auto& individual : regionPair.second) {
                 regions[regionName][1].remove(individual); // Move individual from infected list to recovered list
                 regions[regionName][2].push_back(individual);
-                cout << individual << " in " << regionName << " recovered.\n";
             }
         }
 
@@ -154,5 +154,6 @@ void simulateDiseaseSpread(map<string, array<list<string>, 3>>& regions, int tim
         }
 
         // Optional: Wait or pause briefly to simulate the passage of time between periods
+        std::this_thread::sleep_for(std::chrono::milliseconds(500)); // Pause for 500 ms
     }
 }
